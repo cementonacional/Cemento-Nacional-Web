@@ -1,0 +1,46 @@
+{
+  "name": "cemento-nacional",
+  "version": "0.1.0",
+  "private": true,
+  "scripts": {
+    "dev": "next dev --turbopack",
+    "build": "next build --turbopack",
+    "start": "next start",
+    "lint": "eslint",
+    "lighthouse": "lighthouse-ci autorun",
+    "lighthouse:dev": "lighthouse http://localhost:3000 --view",
+    "test:e2e": "node scripts/test-e2e.js",
+    "test:stripe": "node scripts/test-stripe.js",
+    "test:maps": "node scripts/test-maps.js",
+    "test:lighthouse": "node scripts/test-lighthouse.js",
+    "test:all": "node scripts/run-all-tests.js",
+    "deploy": "node scripts/deploy.js",
+    "deploy:vercel": "vercel --prod"
+  },
+  "dependencies": {
+    "@react-google-maps/api": "^2.20.7",
+    "dayjs": "^1.11.18",
+    "mongoose": "^8.18.0",
+    "next": "15.5.2",
+    "pdf-lib": "^1.17.1",
+    "qrcode": "^1.5.4",
+    "react": "19.1.0",
+    "react-dom": "19.1.0",
+    "stripe": "^18.5.0",
+    "zod": "^4.1.5"
+  },
+  "devDependencies": {
+    "@eslint/eslintrc": "^3",
+    "@lhci/cli": "^0.15.1",
+    "@types/node": "^20",
+    "@types/qrcode": "^1.5.5",
+    "@types/react": "^19",
+    "@types/react-dom": "^19",
+    "autoprefixer": "^10.4.21",
+    "eslint": "^9",
+    "eslint-config-next": "15.5.2",
+    "postcss": "^8.5.6",
+    "tailwindcss": "^3.4.17",
+    "typescript": "^5"
+  }
+}

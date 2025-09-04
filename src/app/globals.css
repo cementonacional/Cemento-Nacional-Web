@@ -1,0 +1,136 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* Mejoras de accesibilidad */
+@layer base {
+  /* Focus visible para mejor accesibilidad */
+  *:focus-visible {
+    outline: 2px solid #dc2626;
+    outline-offset: 2px;
+  }
+  
+  /* Mejorar contraste de texto */
+  body {
+    color: #1a1a1a;
+  }
+  
+  /* Skip link para navegación por teclado */
+  .skip-link {
+    position: absolute;
+    top: -40px;
+    left: 6px;
+    background: #dc2626;
+    color: white;
+    padding: 8px;
+    text-decoration: none;
+    border-radius: 4px;
+    z-index: 1000;
+  }
+  
+  .skip-link:focus {
+    top: 6px;
+  }
+  
+  /* Mejorar contraste de enlaces */
+  a {
+    color: #dc2626;
+    text-decoration: underline;
+  }
+  
+  a:hover {
+    color: #b91c1c;
+  }
+  
+  /* Mejorar contraste de botones */
+  button:not(:disabled) {
+    color: white;
+  }
+  
+  button:disabled {
+    opacity: 0.6;
+    cursor: not-allowed;
+  }
+  
+  /* Mejorar contraste de inputs */
+  input, textarea, select {
+    color: #1a1a1a;
+  }
+  
+  input::placeholder, textarea::placeholder {
+    color: #6b7280;
+  }
+}
+
+/* Definición de la fuente Roc Grotesc */
+@font-face {
+  font-family: 'Roc Grotesc';
+  src: local('Arial Black'), local('Helvetica Neue'), local('sans-serif');
+  font-weight: 700;
+  font-style: normal;
+  font-display: swap;
+}
+
+:root {
+  --background: #ddc6af;
+  --foreground: #1c1c1c;
+  --font-roc-grotesc: 'Roc Grotesc', system-ui, sans-serif;
+}
+
+* {
+  box-sizing: border-box;
+  padding: 0;
+  margin: 0;
+}
+
+html,
+body {
+  max-width: 100vw;
+  overflow-x: hidden;
+  font-family: var(--font-inter), system-ui, sans-serif;
+}
+
+body {
+  color: var(--foreground);
+  background: var(--background);
+}
+
+h1, h2, h3, h4, h5, h6 {
+  font-family: var(--font-montserrat), system-ui, sans-serif;
+}
+
+/* Efectos adicionales para el estilo de costal */
+@layer utilities {
+  .text-shadow {
+    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
+  }
+  
+  .bag-shadow {
+    box-shadow: 0 8px 0 0 rgba(28, 28, 28, 0.8);
+  }
+  
+  .bag-shadow-lg {
+    box-shadow: 0 12px 0 0 rgba(28, 28, 28, 0.9);
+  }
+  
+  .bag-texture {
+    background-image: radial-gradient(circle at 1px 1px, rgba(0,0,0,0.15) 1px, transparent 0);
+    background-size: 20px 20px;
+  }
+  
+  .font-roc-grotesc {
+    font-family: var(--font-roc-grotesc);
+  }
+}
+
+/* Animaciones suaves */
+@layer components {
+  .bag-hover {
+    transition: all 0.3s ease;
+  }
+  
+  .bag-hover:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 10px 0 0 rgba(28, 28, 28, 0.9);
+  }
+}
