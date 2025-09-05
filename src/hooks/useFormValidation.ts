@@ -31,7 +31,7 @@ export function useFormValidation<T extends Record<string, any>>({
     } catch (error) {
       if (error instanceof z.ZodError) {
         const newErrors: Record<string, string> = {};
-        error.errors.forEach((err) => {
+        error.issues.forEach((err) => {
           const field = err.path.join('.');
           newErrors[field] = err.message;
         });
@@ -47,20 +47,22 @@ export function useFormValidation<T extends Record<string, any>>({
     
     // Validar campo individual
     try {
-      const fieldSchema = schema.shape[field as string];
-      if (fieldSchema) {
-        fieldSchema.parse(value);
-        setErrors(prev => {
-          const newErrors = { ...prev };
-          delete newErrors[field as string];
-          return newErrors;
-        });
+      if (schema instanceof z.ZodObject) {
+        const fieldSchema = schema.shape[field as string];
+        if (fieldSchema) {
+          fieldSchema.parse(value);
+          setErrors(prev => {
+            const newErrors = { ...prev };
+            delete newErrors[field as string];
+            return newErrors;
+          });
+        }
       }
     } catch (error) {
-      if (error instanceof z.ZodError && error.errors && error.errors.length > 0) {
+      if (error instanceof z.ZodError && error.issues && error.issues.length > 0) {
         setErrors(prev => ({
           ...prev,
-          [field]: error.errors[0].message || 'Campo inválido'
+          [field]: error.issues[0].message || 'Campo inválido'
         }));
       }
     }
