@@ -1,6 +1,7 @@
 'use client';
 
 import React, { useState, useEffect } from 'react';
+import PurchaseAdmin from './PurchaseAdmin';
 
 interface AdminData {
   messages: any[];
@@ -113,6 +114,7 @@ export default function AdminPanel({ onLogout }: AdminPanelProps) {
             { id: 'messages', label: 'Mensajes', count: data.messages.length },
             { id: 'orders', label: 'Órdenes Stripe', count: data.orders.length },
             { id: 'pedidos', label: 'Pedidos', count: data.pedidos.length },
+            { id: 'purchases', label: 'Compras', count: 0 },
             { id: 'settings', label: 'Ajustes', count: 0 }
           ].map((tab) => (
             <button
@@ -297,6 +299,10 @@ export default function AdminPanel({ onLogout }: AdminPanelProps) {
               <p>Esta funcionalidad estará disponible en la siguiente versión.</p>
             </div>
           </div>
+        )}
+
+        {activeTab === 'purchases' && (
+          <PurchaseAdmin isAuthenticated={true} />
         )}
       </div>
 
