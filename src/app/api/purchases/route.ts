@@ -63,7 +63,7 @@ export async function GET(request: NextRequest) {
     } = validatedParams;
     
     // Construir filtros
-    const filter: any = {};
+    const filter: Record<string, any> = {};
     
     if (status) {
       filter.paymentStatus = status;

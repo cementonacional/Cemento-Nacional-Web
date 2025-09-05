@@ -9,7 +9,7 @@ interface ValidationError {
 }
 
 interface UseFormValidationOptions<T extends Record<string, any>> {
-  schema: z.ZodSchema<any>;
+  schema: z.ZodSchema<T>;
   initialValues: T;
   onSubmit: (values: T) => Promise<void> | void;
 }
@@ -41,7 +41,7 @@ export function useFormValidation<T extends Record<string, any>>({
     }
   }, [schema]);
 
-  const handleChange = useCallback((field: keyof T, value: any) => {
+  const handleChange = useCallback((field: keyof T, value: unknown) => {
     const newValues = { ...values, [field]: value };
     setValues(newValues);
     

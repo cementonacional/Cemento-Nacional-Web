@@ -39,7 +39,7 @@ export async function GET(request: NextRequest) {
     const { status, dateFrom, dateTo, minTotal, maxTotal } = pedidoFiltersSchema.parse(filterParams);
 
     // Construir filtros de búsqueda
-    const filter: any = {};
+    const filter: Record<string, any> = {};
     
     if (status) {
       filter.status = status;
