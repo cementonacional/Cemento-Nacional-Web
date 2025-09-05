@@ -8,13 +8,13 @@ interface ValidationError {
   message: string;
 }
 
-interface UseFormValidationOptions<T extends Record<string, any>> {
+interface UseFormValidationOptions<T extends Record<string, unknown>> {
   schema: z.ZodSchema<T>;
   initialValues: T;
   onSubmit: (values: T) => Promise<void> | void;
 }
 
-export function useFormValidation<T extends Record<string, any>>({
+export function useFormValidation<T extends Record<string, unknown>>({
   schema,
   initialValues,
   onSubmit

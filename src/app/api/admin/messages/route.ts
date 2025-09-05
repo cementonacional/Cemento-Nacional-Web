@@ -37,7 +37,7 @@ export async function GET(request: NextRequest) {
     const { query, dateFrom, dateTo } = searchSchema.parse(searchParams);
 
     // Construir filtros de búsqueda
-    const filter: Record<string, any> = {};
+    const filter: Record<string, unknown> = {};
     
     if (query) {
       filter.$or = [

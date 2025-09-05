@@ -4,7 +4,7 @@ import React, { useEffect, useRef } from 'react';
 import QRCode from 'qrcode';
 
 interface QRCodeDisplayProps {
-  data: string | Record<string, any>;
+  data: string | Record<string, unknown>;
   size?: number;
   className?: string;
 }

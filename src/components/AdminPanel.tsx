@@ -4,10 +4,10 @@ import React, { useState, useEffect } from 'react';
 import PurchaseAdmin from './PurchaseAdmin';
 
 interface AdminData {
-  messages: Record<string, any>[];
-  orders: Record<string, any>[];
-  pedidos: Record<string, any>[];
-  settings: Record<string, any>;
+  messages: Record<string, unknown>[];
+  orders: Record<string, unknown>[];
+  pedidos: Record<string, unknown>[];
+  settings: Record<string, unknown>;
 }
 
 interface AdminPanelProps {
@@ -146,7 +146,7 @@ export default function AdminPanel({ onLogout }: AdminPanelProps) {
               <p className="text-gray-500">No hay mensajes</p>
             ) : (
               <div className="space-y-4">
-                {data.messages.map((message: Record<string, any>) => (
+                {data.messages.map((message: Record<string, unknown>) => (
                   <div key={message._id} className="bg-white border border-gray-200 rounded-lg p-4">
                     <div className="flex justify-between items-start mb-2">
                       <h4 className="font-semibold text-brand-black">{message.nombre}</h4>
@@ -195,7 +195,7 @@ export default function AdminPanel({ onLogout }: AdminPanelProps) {
                     </tr>
                   </thead>
                   <tbody className="bg-white divide-y divide-gray-200">
-                    {data.orders.map((order: Record<string, any>) => (
+                    {data.orders.map((order: Record<string, unknown>) => (
                       <tr key={order._id}>
                         <td className="px-6 py-4 whitespace-nowrap text-sm font-mono text-gray-900">
                           {order.stripeSessionId}
@@ -234,7 +234,7 @@ export default function AdminPanel({ onLogout }: AdminPanelProps) {
               <p className="text-gray-500">No hay pedidos</p>
             ) : (
               <div className="space-y-4">
-                {data.pedidos.map((pedido: Record<string, any>) => (
+                {data.pedidos.map((pedido: Record<string, unknown>) => (
                   <div key={pedido._id} className="bg-white border border-gray-200 rounded-lg p-4">
                     <div className="flex justify-between items-start mb-2">
                       <h4 className="font-semibold text-brand-black">{pedido.nombre}</h4>
