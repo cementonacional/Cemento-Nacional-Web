@@ -49,9 +49,9 @@ export async function GET(request: NextRequest) {
     }
     
     if (dateFrom || dateTo) {
-      filter.createdAt = {};
-      if (dateFrom) filter.createdAt.$gte = dateFrom;
-      if (dateTo) filter.createdAt.$lte = dateTo;
+      filter.createdAt = {} as Record<string, unknown>;
+      if (dateFrom) (filter.createdAt as Record<string, unknown>).$gte = dateFrom;
+      if (dateTo) (filter.createdAt as Record<string, unknown>).$lte = dateTo;
     }
 
     const messages = await Message.find(filter)

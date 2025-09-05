@@ -46,15 +46,15 @@ export async function GET(request: NextRequest) {
     }
     
     if (dateFrom || dateTo) {
-      filter.createdAt = {};
-      if (dateFrom) filter.createdAt.$gte = dateFrom;
-      if (dateTo) filter.createdAt.$lte = dateTo;
+      filter.createdAt = {} as Record<string, unknown>;
+      if (dateFrom) (filter.createdAt as Record<string, unknown>).$gte = dateFrom;
+      if (dateTo) (filter.createdAt as Record<string, unknown>).$lte = dateTo;
     }
     
     if (minTotal !== undefined || maxTotal !== undefined) {
-      filter.totalFinal = {};
-      if (minTotal !== undefined) filter.totalFinal.$gte = minTotal;
-      if (maxTotal !== undefined) filter.totalFinal.$lte = maxTotal;
+      filter.totalFinal = {} as Record<string, unknown>;
+      if (minTotal !== undefined) (filter.totalFinal as Record<string, unknown>).$gte = minTotal;
+      if (maxTotal !== undefined) (filter.totalFinal as Record<string, unknown>).$lte = maxTotal;
     }
 
     const pedidos = await Pedido.find(filter)

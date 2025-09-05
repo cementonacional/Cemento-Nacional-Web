@@ -74,22 +74,22 @@ export async function GET(request: NextRequest) {
     }
     
     if (dateFrom || dateTo) {
-      filter.createdAt = {};
+      filter.createdAt = {} as Record<string, unknown>;
       if (dateFrom) {
-        filter.createdAt.$gte = new Date(dateFrom);
+        (filter.createdAt as Record<string, unknown>).$gte = new Date(dateFrom);
       }
       if (dateTo) {
-        filter.createdAt.$lte = new Date(dateTo);
+        (filter.createdAt as Record<string, unknown>).$lte = new Date(dateTo);
       }
     }
     
     if (minAmount || maxAmount) {
-      filter.totalAmount = {};
+      filter.totalAmount = {} as Record<string, unknown>;
       if (minAmount) {
-        filter.totalAmount.$gte = parseFloat(minAmount);
+        (filter.totalAmount as Record<string, unknown>).$gte = parseFloat(minAmount);
       }
       if (maxAmount) {
-        filter.totalAmount.$lte = parseFloat(maxAmount);
+        (filter.totalAmount as Record<string, unknown>).$lte = parseFloat(maxAmount);
       }
     }
     

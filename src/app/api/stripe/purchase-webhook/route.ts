@@ -1,7 +1,7 @@
 import { NextRequest, NextResponse } from 'next/server';
 import dbConnect from '@/lib/mongodb';
 import { Purchase } from '@/lib/models';
-import { constructEventFromBody } from '@/lib/stripe';
+import { constructEventFromBody, stripe } from '@/lib/stripe';
 import type Stripe from 'stripe';
 
 // Manejar evento de sesión de checkout completada
@@ -39,6 +39,12 @@ async function handlePaymentIntentSucceeded(paymentIntent: Stripe.PaymentIntent)
   try {
     await dbConnect();
     
+    // Obtener el PaymentIntent con charges expandidos
+    const expandedPaymentIntent = await stripe.paymentIntents.retrieve(
+      paymentIntent.id,
+      { expand: ['charges.data.balance_transaction'] }
+    );
+    
     // Buscar la compra por paymentIntentId
     const purchase = await Purchase.findOne({ 
       stripePaymentIntentId: paymentIntent.id 
@@ -50,7 +56,7 @@ async function handlePaymentIntentSucceeded(paymentIntent: Stripe.PaymentIntent)
     }
     
     // Actualizar estado de pago y calcular comisiones
-    const stripeFee = paymentIntent.charges?.data?.[0]?.balance_transaction?.fee || 0;
+    const stripeFee = (expandedPaymentIntent as unknown as { charges?: { data?: Array<{ balance_transaction?: { fee?: number } }> } }).charges?.data?.[0]?.balance_transaction?.fee || 0;
     
     await Purchase.findByIdAndUpdate(purchase._id, {
       paymentStatus: 'paid',

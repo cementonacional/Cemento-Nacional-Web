@@ -43,7 +43,6 @@ export default function GoogleMapsProvider({ children }: GoogleMapsProviderProps
     <LoadScript
       googleMapsApiKey={apiKey}
       preventGoogleFontsLoading
-      strategy="lazyOnload"
       onLoad={() => setIsLoaded(true)}
       onError={(error) => setLoadError(error)}
     >

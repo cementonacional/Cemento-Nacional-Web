@@ -16,12 +16,13 @@ const updatePurchaseSchema = z.object({
 // GET /api/purchases/[id] - Obtener una compra específica
 export async function GET(
   request: NextRequest,
-  { params }: { params: { id: string } }
+  { params }: { params: Promise<{ id: string }> }
 ) {
   try {
     await dbConnect();
     
-    const purchase = await Purchase.findById(params.id);
+    const { id } = await params;
+    const purchase = await Purchase.findById(id);
     
     if (!purchase) {
       return NextResponse.json({
@@ -48,11 +49,12 @@ export async function GET(
 // PATCH /api/purchases/[id] - Actualizar una compra
 export async function PATCH(
   request: NextRequest,
-  { params }: { params: { id: string } }
+  { params }: { params: Promise<{ id: string }> }
 ) {
   try {
     await dbConnect();
     
+    const { id } = await params;
     const body = await request.json();
     
     // Validar datos
@@ -60,7 +62,7 @@ export async function PATCH(
     
     // Actualizar compra
     const purchase = await Purchase.findByIdAndUpdate(
-      params.id,
+      id,
       { ...validatedData, updatedAt: new Date() },
       { new: true, runValidators: true }
     );
@@ -98,12 +100,13 @@ export async function PATCH(
 // DELETE /api/purchases/[id] - Eliminar una compra
 export async function DELETE(
   request: NextRequest,
-  { params }: { params: { id: string } }
+  { params }: { params: Promise<{ id: string }> }
 ) {
   try {
     await dbConnect();
     
-    const purchase = await Purchase.findByIdAndDelete(params.id);
+    const { id } = await params;
+    const purchase = await Purchase.findByIdAndDelete(id);
     
     if (!purchase) {
       return NextResponse.json({

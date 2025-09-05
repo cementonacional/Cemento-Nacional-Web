@@ -1,6 +1,6 @@
 'use client';
 
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, Suspense } from 'react';
 import { useSearchParams } from 'next/navigation';
 import StripeBuyButton from '@/components/StripeBuyButton';
 
@@ -15,7 +15,7 @@ interface CheckoutResponse {
   message?: string;
 }
 
-export default function ComprarPage() {
+function ComprarContent() {
   const [quantity, setQuantity] = useState(1);
   const [isLoading, setIsLoading] = useState(false);
   const [message, setMessage] = useState('');
@@ -245,5 +245,18 @@ export default function ComprarPage() {
         </div>
       </div>
     </div>
+  );
+}
+
+export default function ComprarPage() {
+  return (
+    <Suspense fallback={<div className="flex items-center justify-center h-64">
+      <div className="text-center">
+        <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-brand-red mx-auto mb-4"></div>
+        <p className="text-brand-black">Cargando...</p>
+      </div>
+    </div>}>
+      <ComprarContent />
+    </Suspense>
   );
 }

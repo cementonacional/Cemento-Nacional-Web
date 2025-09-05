@@ -6,10 +6,10 @@ import { Pedido } from '@/lib/models';
 
 export async function GET(
   request: NextRequest,
-  { params }: { params: { id: string } }
+  { params }: { params: Promise<{ id: string }> }
 ) {
   try {
-    const { id } = params;
+    const { id } = await params;
 
     // Conectar a la base de datos
     await dbConnect();
@@ -307,7 +307,7 @@ export async function GET(
     // Generar PDF
     const pdfBytes = await pdfDoc.save();
 
-    return new NextResponse(pdfBytes, {
+    return new NextResponse(pdfBytes as BodyInit, {
       headers: {
         'Content-Type': 'application/pdf',
         'Content-Disposition': `attachment; filename="pedido-${id}.pdf"`,

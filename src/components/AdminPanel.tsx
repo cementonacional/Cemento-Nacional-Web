@@ -3,10 +3,51 @@
 import React, { useState, useEffect } from 'react';
 import PurchaseAdmin from './PurchaseAdmin';
 
+interface Message {
+  _id: string;
+  nombre: string;
+  correo: string;
+  telefono?: string;
+  compania?: string;
+  mensaje: string;
+  createdAt: string;
+}
+
+interface Order {
+  _id: string;
+  stripeSessionId: string;
+  status: string;
+  amountTotal: number;
+  currency: string;
+  customerEmail: string;
+  createdAt: string;
+}
+
+interface Pedido {
+  _id: string;
+  nombre: string;
+  correo: string;
+  telefono?: string;
+  compania?: string;
+  bolsas: number;
+  precioUnitario: number;
+  subtotal: number;
+  flete: number;
+  totalFinal: number;
+  address?: string;
+  location?: {
+    lat: number;
+    lng: number;
+  };
+  distanceKm: number;
+  notas?: string;
+  createdAt: string;
+}
+
 interface AdminData {
-  messages: Record<string, unknown>[];
-  orders: Record<string, unknown>[];
-  pedidos: Record<string, unknown>[];
+  messages: Message[];
+  orders: Order[];
+  pedidos: Pedido[];
   settings: Record<string, unknown>;
 }
 
@@ -73,12 +114,13 @@ export default function AdminPanel({ onLogout }: AdminPanelProps) {
     return new Date(dateString).toLocaleString('es-MX');
   };
 
-  const formatCurrency = (amount: number) => {
+  const formatCurrency = (amount: number, currency: string = 'MXN') => {
     return new Intl.NumberFormat('es-MX', {
       style: 'currency',
-      currency: 'MXN'
+      currency: currency,
     }).format(amount);
   };
+
 
   if (loading) {
     return (
@@ -146,7 +188,7 @@ export default function AdminPanel({ onLogout }: AdminPanelProps) {
               <p className="text-gray-500">No hay mensajes</p>
             ) : (
               <div className="space-y-4">
-                {data.messages.map((message: Record<string, unknown>) => (
+                {data.messages.map((message: Message) => (
                   <div key={message._id} className="bg-white border border-gray-200 rounded-lg p-4">
                     <div className="flex justify-between items-start mb-2">
                       <h4 className="font-semibold text-brand-black">{message.nombre}</h4>
@@ -195,7 +237,7 @@ export default function AdminPanel({ onLogout }: AdminPanelProps) {
                     </tr>
                   </thead>
                   <tbody className="bg-white divide-y divide-gray-200">
-                    {data.orders.map((order: Record<string, unknown>) => (
+                    {data.orders.map((order: Order) => (
                       <tr key={order._id}>
                         <td className="px-6 py-4 whitespace-nowrap text-sm font-mono text-gray-900">
                           {order.stripeSessionId}
@@ -234,7 +276,7 @@ export default function AdminPanel({ onLogout }: AdminPanelProps) {
               <p className="text-gray-500">No hay pedidos</p>
             ) : (
               <div className="space-y-4">
-                {data.pedidos.map((pedido: Record<string, unknown>) => (
+                {data.pedidos.map((pedido: Pedido) => (
                   <div key={pedido._id} className="bg-white border border-gray-200 rounded-lg p-4">
                     <div className="flex justify-between items-start mb-2">
                       <h4 className="font-semibold text-brand-black">{pedido.nombre}</h4>

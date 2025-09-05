@@ -263,7 +263,7 @@ export default function PurchaseAdmin({ isAuthenticated }: PurchaseAdminProps) {
               </thead>
               <tbody className="bg-white divide-y divide-gray-200">
                 {purchases.map((purchase) => (
-                  <tr key={purchase._id} className="hover:bg-gray-50">
+                  <tr key={purchase._id as string} className="hover:bg-gray-50">
                     <td className="px-4 py-4 whitespace-nowrap">
                       <div>
                         <div className="text-sm font-medium text-gray-900">

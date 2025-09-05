@@ -9,7 +9,7 @@ interface ValidationError {
 }
 
 interface UseFormValidationOptions<T extends Record<string, unknown>> {
-  schema: z.ZodSchema<T>;
+  schema: z.ZodSchema<unknown>;
   initialValues: T;
   onSubmit: (values: T) => Promise<void> | void;
 }
