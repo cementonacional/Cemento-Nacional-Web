@@ -57,10 +57,10 @@ export function useFormValidation<T extends Record<string, any>>({
         });
       }
     } catch (error) {
-      if (error instanceof z.ZodError) {
+      if (error instanceof z.ZodError && error.errors && error.errors.length > 0) {
         setErrors(prev => ({
           ...prev,
-          [field]: error.errors[0]?.message || 'Campo inválido'
+          [field]: error.errors[0].message || 'Campo inválido'
         }));
       }
     }
